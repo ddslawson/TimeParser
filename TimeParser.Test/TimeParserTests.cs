@@ -1,3 +1,4 @@
+using System.Globalization;
 using TimeParser;
 
 namespace TimeParser.Test
@@ -21,6 +22,11 @@ namespace TimeParser.Test
                 output.Month == sysTime.Month &&
                 output.Day == sysTime.Day);
 
+            string dateString = TimeParser.DateTimeToString(output);
+            string dateString2 = sysTime.ToString("yyyy-MM-dd'T'HH:mm:ssK", CultureInfo.InvariantCulture);
+
+            Assert.AreEqual(dateString2, dateString);
+
             input = "now()+1d+20y@d";
 
             output = TimeParser.Parse(input);
@@ -30,6 +36,12 @@ namespace TimeParser.Test
                 output.Month == sysTime.Month &&
                 output.Day == (sysTime.Day + 1));
 
+            dateString = TimeParser.DateTimeToString(output);
+            sysTime = sysTime.AddYears(20);
+            sysTime = sysTime.AddDays(1);
+            dateString2 = sysTime.ToString("yyyy-MM-dd'T'HH:mm:ssK", CultureInfo.InvariantCulture);
+
+            Assert.AreEqual(dateString2[..11], dateString[..11]);
         }
 
         [TestMethod]

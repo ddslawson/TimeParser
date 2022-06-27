@@ -36,6 +36,8 @@
             { '@', OperatorType.Snap }
         };
 
+        const string timeTag = "T";
+        const string utcTimezone = "Z";
         const string nowFunctionTag = "now()";
 
         /// <summary>
@@ -241,6 +243,18 @@
                 return dateTime;
             }
             return null;
+        }
+
+        public static string DateTimeToString(DateTime dateTime)
+        {
+            if (dateTime != null)
+            {
+                return $"{dateTime.Year:D4}-{dateTime.Month:D2}-{dateTime.Day:D2}{timeTag}{dateTime.Hour:D2}:{dateTime.Minute:D2}:{dateTime.Second:D2}{utcTimezone}";
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }
