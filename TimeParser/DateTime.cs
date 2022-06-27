@@ -163,17 +163,28 @@ namespace TimeParser
         /// <returns></returns>
         public int AddMonths(int amount)
         {
-            int tempMonth = month + amount;
-            if (tempMonth > monthsInYear)
+            if (amount != 0)
             {
-                // Default int behaviour of truncating decimals down.
-                int numOfYears = tempMonth / monthsInYear;
-                AddYears(numOfYears);
+                int tempMonth = month + amount;
+                if (tempMonth > monthsInYear)
+                {
+                    // Default int behaviour of truncating decimals down.
+                    int numOfYears = tempMonth / monthsInYear;
+                    AddYears(numOfYears);
 
-                tempMonth -= numOfYears * monthsInYear;
+                    tempMonth -= numOfYears * monthsInYear;
+                }
+                else if (tempMonth <= 0)
+                {
+                    int numOfYears = 1 + (-tempMonth / monthsInYear);
+                    AddYears(-numOfYears);
+
+                    // Correct negative month to 1-12
+                    tempMonth = monthsInYear + (tempMonth % monthsInYear);
+                }
+                month = tempMonth;
+                AccountForLeapYearChange();
             }
-            month = tempMonth;
-            AccountForLeapYearChange();
             return month;
         }
 
@@ -189,6 +200,11 @@ namespace TimeParser
             {
                 tempDay -= DaysInMonth;
                 AddMonths(1);
+            }
+            while (tempDay <= 0)
+            {
+                AddMonths(-1);
+                tempDay += DaysInMonth;
             }
             day = tempDay;
         }
@@ -207,6 +223,13 @@ namespace TimeParser
 
                 tempHour -= numOfDays * hoursInDay;
             }
+            else if (tempHour < 0)
+            {
+                int numOfDays = 1 + (-tempHour / hoursInDay);
+                AddDays(-numOfDays);
+                // Correct negative hours to 0-23
+                tempHour = hoursInDay + (tempHour % hoursInDay);
+            }
             hour = tempHour;
         }
 
@@ -224,6 +247,13 @@ namespace TimeParser
 
                 tempMinute -= numOfHours * minutesInHour;
             }
+            else if (tempMinute < 0)
+            {
+                int numOfHours = 1 + (-tempMinute / minutesInHour);
+                AddHours(-numOfHours);
+                // Correct negative minutes to 0-59
+                tempMinute = minutesInHour + (tempMinute % minutesInHour);
+            }
             minute = tempMinute;
         }
 
@@ -240,6 +270,13 @@ namespace TimeParser
                 AddMinutes(numOfMinutes);
 
                 tempSecond -= numOfMinutes * secondsInMinute;
+            }
+            else if (tempSecond < 0)
+            {
+                int numOfMinutes = 1 + (-tempSecond / secondsInMinute);
+                AddMinutes(-numOfMinutes);
+                // Correct negative seconds to 0-59
+                tempSecond = secondsInMinute + (tempSecond % secondsInMinute);
             }
             second = tempSecond;
         }
