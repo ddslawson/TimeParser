@@ -45,6 +45,20 @@ namespace TimeParser
         const int minutesInHour = 60;
         const int secondsInMinute = 60;
 
+        const int yearMin = 0;
+        const int monthMin = 1;
+        const int dayMin = 1;
+        const int hourMin = 0;
+        const int minuteMin = 0;
+        const int secondMin = 0;
+
+        private int year = yearMin;
+        private int month = monthMin;
+        private int day = dayMin;
+        private int hour = hourMin;
+        private int minute = minuteMin;
+        private int second = secondMin;
+
         public int DaysInYear
         {
             get
@@ -80,15 +94,6 @@ namespace TimeParser
             }
         }
 
-
-
-        private int year;
-        private int month;
-        private int day;
-        private int hour;
-        private int minute;
-        private int second;
-
         public int Year
         {
             get => year;
@@ -122,7 +127,7 @@ namespace TimeParser
             set
             {
                 hour = 0;
-                AddDays(value);
+                AddHours(value);
             }
         }
         public int Minute

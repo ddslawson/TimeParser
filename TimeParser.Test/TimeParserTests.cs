@@ -5,8 +5,32 @@ namespace TimeParser.Test
     [TestClass]
     public class TimeParserTests
     {
-        TimeParser timeParser = new();
         DateTime dateTime = new();
+
+        [TestMethod]
+        public void TestTimeParse()
+        {
+            string input = "now()";
+
+            DateTime? output = TimeParser.Parse(input);
+
+            System.DateTime sysTime = System.DateTime.UtcNow;
+
+            Assert.IsNotNull(output);
+            Assert.IsTrue(output.Year == sysTime.Year &&
+                output.Month == sysTime.Month &&
+                output.Day == sysTime.Day);
+
+            input = "now()+1d+20y@d";
+
+            output = TimeParser.Parse(input);
+
+            Assert.IsNotNull(output);
+            Assert.IsTrue(output.Year == (sysTime.Year + 20) &&
+                output.Month == sysTime.Month &&
+                output.Day == (sysTime.Day + 1));
+
+        }
 
         [TestMethod]
         public void TestDateTimeAdd()
