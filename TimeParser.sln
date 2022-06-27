@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeParser", "TimeParser\TimeParser.csproj", "{B7D50ED3-0E78-418A-847F-030A24F7FA43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeParser.App", "TimeParserApp\TimeParser.App.csproj", "{B9482CB9-4D24-4688-A85B-95F04EA0C166}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeParser.App", "TimeParser.App\TimeParser.App.csproj", "{B9482CB9-4D24-4688-A85B-95F04EA0C166}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeParser.Test", "TimeParser.Test\TimeParser.Test.csproj", "{4F42935F-F8E9-48DC-B5A8-BB2A8FDB2E47}"
 EndProject
