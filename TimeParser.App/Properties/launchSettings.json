@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TimeParser.App": {
+      "commandName": "Project",
+      "commandLineArgs": "now()"
+    }
+  }
+}
