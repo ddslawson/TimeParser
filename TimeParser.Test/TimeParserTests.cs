@@ -45,6 +45,45 @@ namespace TimeParser.Test
         }
 
         [TestMethod]
+        public void TestTimeParseInvalid()
+        {
+            string input = "";
+
+            DateTime? output = TimeParser.Parse(input);
+            string dateString = TimeParser.DateTimeToString(output);
+
+            Assert.IsNotNull(output);
+            Assert.IsTrue(dateTime.Year == 0);
+            Assert.IsTrue(dateTime.Month == 1);
+            Assert.IsTrue(dateTime.Day == 1);
+
+            input = "sddfghbsdfg";
+
+            output = TimeParser.Parse(input);
+            dateString = TimeParser.DateTimeToString(output);
+
+            Assert.IsNotNull(output);
+            Assert.IsTrue(dateTime.Year == 0);
+            Assert.IsTrue(dateTime.Month == 1);
+            Assert.IsTrue(dateTime.Day == 1);
+
+            input = "now()=gnnghg";
+
+            output = TimeParser.Parse(input);
+
+            System.DateTime sysTime = System.DateTime.UtcNow;
+            dateString = TimeParser.DateTimeToString(output);
+
+            Assert.IsNotNull(output);
+            Assert.IsTrue(output.Year == sysTime.Year &&
+                output.Month == sysTime.Month &&
+                output.Day == sysTime.Day);
+
+            dateString = TimeParser.DateTimeToString(null);
+            Assert.IsTrue(dateString.Equals(string.Empty));
+        }
+
+        [TestMethod]
         public void TestDateTimeAdd()
         {
             dateTime.Year = 2022;
@@ -255,6 +294,10 @@ namespace TimeParser.Test
             dateTime.AddMinutes(4 * 365 * 24 * 60);
 
             Assert.IsTrue(dateTime.IsLeapYear);
+
+            dateTime.AddYears(-8000);
+
+            Assert.IsTrue(dateTime.Year == 0);
         }
     }
 }

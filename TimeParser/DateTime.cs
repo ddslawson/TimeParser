@@ -41,6 +41,7 @@ namespace TimeParser
         };
 
         const int monthsInYear = 12;
+        const int daysInYear = 365;
         const int hoursInDay = 24;
         const int minutesInHour = 60;
         const int secondsInMinute = 60;
@@ -65,11 +66,11 @@ namespace TimeParser
             {
                 if (IsLeapYear)
                 {
-                    return 366;
+                    return daysInYear + 1;
                 }
                 else
                 {
-                    return 365;
+                    return daysInYear;
                 }
             }
         }
@@ -157,6 +158,10 @@ namespace TimeParser
         public int AddYears(int amount)
         {
             year += amount;
+            if (year < yearMin)
+            {
+                year = yearMin;
+            }
             AccountForLeapYearChange();
             return year;
         }

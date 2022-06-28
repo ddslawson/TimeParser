@@ -242,10 +242,10 @@
                 }
                 return dateTime;
             }
-            return null;
+            return new();
         }
 
-        public static string DateTimeToString(DateTime dateTime)
+        public static string DateTimeToString(DateTime? dateTime)
         {
             if (dateTime != null)
             {
